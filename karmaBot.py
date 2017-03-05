@@ -53,7 +53,7 @@ def handle(msg):
 				for id in id_nicks:
 					if msg_words[2] in id:
 						conflict = true;
-				if !conflict:
+				if not conflict:
 					if msg_words[2] not in id_nicks[str(sender['id'])]:
 						rename(str(sender['id']), msg_words[2]) 
 					else:
