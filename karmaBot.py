@@ -56,6 +56,7 @@ def handle(msg):
 					temp_nick = id_nicks[str(sender['id'])][0]
 					id_nicks[str(sender['id'])][0] = id_nicks[str(sender['id'])][swap_index]
 					id_nicks[str(sender['id'])][swap_index] = temp_nick
+				write_id_info()
 		elif '++' in msg['text']:
 			count_handler(1 , msg['text'], sender['id'], chat_id)
 		elif '--' in msg['text']:
