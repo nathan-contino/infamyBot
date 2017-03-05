@@ -47,12 +47,13 @@ def handle(msg):
 		write_id_info()
 	if content_type == 'text':
 		if 'rename' in msg['text']:
-			conflict = false;
+			conflict = False;
 			msg_words = msg['text'].split()
 			if len(msg_words) == 3:
 				for id in id_nicks:
 					if msg_words[2] in id:
-						conflict = true;
+						conflict = True;
+						bot.sendMessage(chat_id, 'Bad user. Don\'t steal usernames.')
 				if not conflict:
 					if msg_words[2] not in id_nicks[str(sender['id'])]:
 						rename(str(sender['id']), msg_words[2]) 
@@ -62,6 +63,7 @@ def handle(msg):
 						id_nicks[str(sender['id'])][0] = id_nicks[str(sender['id'])][swap_index]
 						id_nicks[str(sender['id'])][swap_index] = temp_nick
 					write_id_info()
+					bot.sendMessage(chat_id, 'Successfully renamed to ' + msg_words[2])
 		elif '++' in msg['text']:
 			count_handler(1 , msg['text'], sender['id'], chat_id)
 		elif '--' in msg['text']:
