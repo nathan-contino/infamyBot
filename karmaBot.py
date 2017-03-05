@@ -86,8 +86,8 @@ def handle(msg):
 			bot.sendMessage(chat_id, 'Unsupported behaviour. Pls increment by one brownie point at a time.')
 		elif '/=' in msg['text']:
 			bot.sendMessage(chat_id, 'Unsupported behaviour. Pls decrement by one brownie point at a time.')
-		else:
-			bot.sendMessage(chat_id, 'I didn\'t understand that. Please consult the docs at https://github.com/nathan-contino/infamyBot')
+		#else:
+			#bot.sendMessage(chat_id, 'I didn\'t understand that. Please consult the docs at https://github.com/nathan-contino/infamyBot')
 				
 
 def count_handler(direction, text, sender_id, chat_id):
