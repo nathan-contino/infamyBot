@@ -47,15 +47,16 @@ def handle(msg):
 	sender = msg['from']
 	sender_id = str(sender['id']);
 	receiver = '';
-	if str(sender['id']) not in id_count:
-		id_nicks[str(sender['id'])] = []
+	if sender_id not in id_count:
+		id_chats[sender_id] = [str(chat_id)]
+		id_nicks[sender_id] = []
 		if 'username' in sender:
 			id_nicks[sender_id].append(sender['username'].lower())
 		if 'first_name' in sender:
 			id_nicks[sender_id].append(sender['first_name'].lower())
 		if 'last_name' in sender:
 			id_nicks[sender_id].append(sender['last_name'].lower())
-		id_count[str(sender['id'])] = 0;
+		id_count[sender_id] = 0;
 		write_id_info()
 	if content_type == 'text':
 		if 'rename' in msg['text']:
