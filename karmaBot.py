@@ -3,6 +3,7 @@ import time
 import telepot
 id_count = {};
 id_nicks = {};
+id_chats = {};
 bot = telepot.Bot('261334375:AAHlnUWwZ8cxTEu4JSJ90PcMBP__8V9IFiw');
 
 def write_id_info():
@@ -12,6 +13,9 @@ def write_id_info():
 	for id in id_count:
 		buffer += str(id) + ' '
 		buffer += str(id_count[id]) + ' '
+		for chat in id_chats[id]:
+			buffer += chat + ' '
+		buffer += '-n '
 		for nick in id_nicks[id]:
 			buffer += nick + ' ' 
 		buffer += '\n'
@@ -26,9 +30,16 @@ def read_id_info():
 		if id != '':
 			val = id.split()
 			id_count[val[0]] = int(val[1])
-			id_nicks[val[0]] = []
+			id_chats[val[0]] = []
 			if len(val) > 2:
-				for i in range(2, len(val)):
+				counter = 2
+				while val[counter] != '-n':
+					id_chats[val[0]].append(val[counter])
+					counter += 1
+			counter += 1
+			id_nicks[val[0]] = []
+			if len(val) > counter:
+				for i in range(counter, len(val)):
 					id_nicks[val[0]].append(val[i])
 
 def handle(msg):
@@ -50,7 +61,7 @@ def handle(msg):
 		if 'rename' in msg['text']:
 			conflict = False;
 			msg_words = msg['text'].split()
-			if len(msg_words) == 3:
+			if len(msg_words) == 3 and not msg_words[2].isdigit():
 				if msg_words[2] in id_nicks[sender_id]:
 					swap_index = id_nicks[sender_id].index(msg_words[2])
 					temp_nick = id_nicks[sender_id][0]
@@ -76,7 +87,8 @@ def handle(msg):
 		elif 'count pls' in msg['text']:
 			count_pls = 'Current counts:\n'
 			for user in id_count:
-				count_pls += id_nicks[user][0] + ' = ' + str(id_count[user]) + '\n'
+				if str(chat_id) in id_chats[user]:
+					count_pls += id_nicks[user][0] + ' = ' + str(id_count[user]) + '\n'
 			bot.sendMessage(chat_id, count_pls)
 		elif '+=' in msg['text']:
 			bot.sendMessage(chat_id, 'Unsupported behaviour. Pls increment by one brownie point at a time.')
