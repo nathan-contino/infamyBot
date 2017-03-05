@@ -1,4 +1,6 @@
-0 0 bot 
-103225819 0 laura lockard 
-19164756 0 vanilla_nut nathan contino 
 49249106 0 ndonoghue nolan donoghue 
+19164756 0 nathan vanilla_nut contino 
+19631650 6 ryan lee 
+0 3 bot 
+103225819 0 pupper laura lockard 
+123681627 0 ben wucher 
